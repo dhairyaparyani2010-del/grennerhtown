@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greener HTown | Sustainable Bayou City</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest: #0a1a12;
+            --jade: #1b4332;
+            --mint: #d8f3dc;
+            --glow: #74c69d;
+            --white: #f8f9fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--forest);
+            color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .bg-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, #152d22 0%, #0a1a12 100%);
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--glow);
+            border-radius: 50%;
+            filter: blur(2px);
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-100vh) translateX(20px); opacity: 0; }
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Nav */
+        nav {
+            padding: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--glow);
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            color: var(--mint);
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--white);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 100px 0 60px;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--mint);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+
+        /* Calculator Section */
+        .calculator-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 40px;
+            padding: 50px;
+            margin: 60px 0;
+        }
+
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .calculator-grid { grid-template-columns: 1fr; }
+        }
+
+        .calculator-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--mint);
+            font-size: 0.9rem;
+        }
+
+        .input-field, .select-field, .textarea-field {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px 20px;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .textarea-field {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-btn {
+            background: var(--glow);
+            color: var(--forest);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .contact-btn:hover {
+            background: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .calc-result {
+            background: var(--jade);
+            padding: 40px;
+            border-radius: 30px;
+            text-align: center;
+        }
+
+        .result-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--glow);
+            margin: 10px 0;
+        }
+
+        .result-breakdown {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+        }
+
+        .breakdown-value {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .breakdown-desc {
+            font-size: 0.8rem;
+            color: var(--mint);
+        }
+
+        /* Coming Soon Sections */
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .coming-soon-card {
+            text-align: center;
+            padding: 80px 40px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 40px;
+            border: 2px dashed var(--jade);
+            margin-bottom: 80px;
+        }
+
+        .coming-soon-emoji {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: var(--jade);
+            color: var(--glow);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: #050d09;
+            padding: 80px 0 30px;
+            margin-top: 100px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content { grid-template-columns: 1fr 1fr; }
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--glow);
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li { margin-bottom: 12px; }
+
+        .footer-links a {
+            color: var(--mint);
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover { opacity: 1; }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 30px;
+            font-size: 0.8rem;
+            color: var(--mint);
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-wrapper" id="particle-container"></div>
+
+    <div class="container">
+        <nav>
+            <a href="#" class="logo">🌱 Greener HTown</a>
+            <div class="nav-links">
+                <a href="#calculator">Calculator</a>
+                <a href="#rewards">Rewards</a>
+                <a href="#volunteer">Volunteer</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <div class="status-badge">Phase 1: Awareness</div>
+            <h1>A Cleaner, Greener<br>Bayou City.</h1>
+            <p class="subtitle">Empowering Houstonians to calculate their impact, earn local rewards, and restore our unique ecosystem.</p>
+        </section>
+
+        <!-- Calculator Section -->
+        <section id="calculator">
+            <div class="calculator-section">
+                <div class="calculator-grid">
+                    <div>
+                        <h2 class="calculator-title">Impact Calculator</h2>
+                        <div class="input-group">
+                            <label class="input-label">Monthly Electric Bill ($)</label>
+                            <input type="number" id="bill-input" class="input-field" placeholder="e.g. 150" oninput="calculateImpact()">
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Current Energy Source</label>
+                            <select id="source-input" class="select-field" onchange="calculateImpact()">
+                                <option value="fossil">Standard Grid (Fossil Fuels)</option>
+                                <option value="mixed">Mixed / Green Choice</option>
+                                <option value="renewable">100% Renewable</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Daily Commute (Miles)</label>
+                            <input type="number" id="commute-input" class="input-field" placeholder="e.g. 20" oninput="calculateImpact()">
+                        </div>
+                    </div>
+
+                    <div class="calc-result">
+                        <div class="input-label">Potential Monthly Savings</div>
+                        <div class="result-number" id="co2-result">0</div>
+                        <div class="input-label">Lbs of CO₂ Offset</div>
+                        
+                        <div class="result-breakdown">
+                            <div>
+                                <div class="breakdown-value" id="money-result">$0</div>
+                                <div class="breakdown-desc">Energy Savings</div>
+                            </div>
+                            <div>
+                                <div class="breakdown-value" id="points-result">0</div>
+                                <div class="breakdown-desc">HTown Points</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rewards Section -->
+        <section id="rewards">
+            <div class="section-header">
+                <h2 class="section-title">Local Rewards</h2>
+                <p class="subtitle">Trade your impact points for perks at Houston's favorite spots.</p>
+            </div>
+            
+            <div class="coming-soon-card">
+                <span class="coming-soon-emoji">🎁</span>
+                <div class="status-badge">Partnering Now</div>
+                <h3 class="calculator-title">Coming Soon</h3>
+                <p class="subtitle" style="margin-bottom: 0;">
+                    We are currently building our network of local partners. Soon you'll be able to redeem points for coffee at local roasters, discounts at sustainable boutiques, and free BCycle passes.
+                </p>
+            </div>
+        </section>
+
+        <!-- Volunteer Section -->
+        <section id="volunteer">
+            <div class="section-header">
+                <h2 class="section-title">Get Involved</h2>
+                <p class="subtitle">Join the movement to restore Houston's natural beauty.</p>
+            </div>
+
+            <div class="coming-soon-card" style="border-color: var(--glow);">
+                <span class="coming-soon-emoji">🤝</span>
+                <div class="status-badge">Developing Portal</div>
+                <h3 class="calculator-title">Volunteer Portal Coming Soon</h3>
+                <p class="subtitle" style="margin-bottom: 0;">
+                    From Buffalo Bayou cleanups to Memorial Park restoration, we're creating a central hub for environmental action. Sign up to be notified when our first event goes live.
+                </p>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="section-header">
+                <h2 class="section-title">Contact Us</h2>
+                <p class="subtitle">Have a question or want to partner with us? Drop us a line.</p>
+            </div>
+            <div class="calculator-section" style="max-width: 600px; margin: 0 auto;">
+                <form id="contact-form">
+                    <div class="input-group">
+                        <label class="input-label">Your Name</label>
+                        <input type="text" id="contact-name" class="input-field" placeholder="Full Name" required>
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Subject</label>
+                        <input type="text" id="contact-subject" class="input-field" placeholder="What is this regarding?" required>
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Message</label>
+                        <textarea id="contact-message" class="textarea-field" placeholder="Tell us more..." required></textarea>
+                    </div>
+                    <button type="submit" class="contact-btn">Send Message</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">🌱 Greener HTown</div>
+                    <p style="opacity: 0.6; font-size: 0.9rem;">The data-driven platform for a more sustainable Houston. Small choices, big impact for the 713.</p>
+                </div>
+                <div>
+                    <h4>Explore</h4>
+                    <ul class="footer-links">
+                        <li><a href="#calculator">Impact Tool</a></li>
+                        <li><a href="#rewards">Rewards</a></li>
+                        <li><a href="#volunteer">Volunteer</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Our Vision</a></li>
+                        <li><a href="#">Data Privacy</a></li>
+                        <li><a href="mailto:dhairyaparyani2011@gmail.com">Direct Email</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Connect</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://instagram.com/greenerhtown" target="_blank">Instagram</a></li>
+                        <li><a href="https://linkedin.com/in/dhairyaparyani" target="_blank">LinkedIn</a></li>
+                        <li><a href="mailto:dhairyaparyani2011@gmail.com">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Greener HTown. Built for the future of the Bayou City by Dhairya Paryani.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Impact Calculator Logic
+        function calculateImpact() {
+            const bill = parseFloat(document.getElementById('bill-input').value) || 0;
+            const source = document.getElementById('source-input').value;
+            const commute = parseFloat(document.getElementById('commute-input').value) || 0;
+
+            let energySavings = 0;
+            if (source === 'fossil') energySavings = (bill / 0.14) * 0.9;
+            else if (source === 'mixed') energySavings = (bill / 0.14) * 0.45;
+            else energySavings = (bill / 0.14) * 0.1;
+
+            let commuteSavings = commute * 0.88 * 22;
+
+            const totalCO2 = Math.round(energySavings + commuteSavings);
+            const totalMoney = Math.round((bill * 0.15));
+            const points = Math.round(totalCO2 * 0.5);
+
+            document.getElementById('co2-result').innerText = totalCO2.toLocaleString();
+            document.getElementById('money-result').innerText = '$' + totalMoney.toLocaleString();
+            document.getElementById('points-result').innerText = points.toLocaleString();
+        }
+
+        // Particle System
+        function initParticles() {
+            const container = document.getElementById('particle-container');
+            const particleCount = 40;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + 'vw';
+                particle.style.top = Math.random() * 100 + 'vh';
+                const duration = 10 + Math.random() * 20;
+                const delay = Math.random() * 10;
+                particle.style.animationDuration = duration + 's';
+                particle.style.animationDelay = '-' + delay + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Contact Form Handling
+        document.getElementById('contact-form').onsubmit = function(e) {
+            e.preventDefault();
+            const name = document.getElementById('contact-name').value;
+            const subject = document.getElementById('contact-subject').value;
+            const message = document.getElementById('contact-message').value;
+            
+            const mailtoLink = `mailto:dhairyaparyani2011@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent("From: " + name + "\n\n" + message)}`;
+            
+            window.location.href = mailtoLink;
+        };
+
+        window.onload = function() {
+            initParticles();
+            calculateImpact();
+        };
+    </script>
+</body>
+</html>
